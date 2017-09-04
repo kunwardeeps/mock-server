@@ -6,3 +6,6 @@
 Installation Notes:
 1. Install MongoDB
 2. Run the app using spring boot or create an uber jar to deploy
+
+Screenshot
+![Screenshot](https://github.com/kunwardeeps/mock-server/raw/master/mock-server/src/images/screenshot.png)
