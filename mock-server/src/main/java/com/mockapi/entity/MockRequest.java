@@ -17,6 +17,7 @@ public class MockRequest {
 	private String encoding;
 	private String body;
 	private List<HeaderDTO> headers;
+	private int delay;
 	
 	public String getMockId() {
 		return mockId;
@@ -54,5 +55,10 @@ public class MockRequest {
 	public void setHeaders(List<HeaderDTO> headers) {
 		this.headers = headers;
 	}
-	
+	public int getDelay() {
+		return delay;
+	}
+	public void setDelay(int delay) {
+		this.delay = delay;
+	}
 }

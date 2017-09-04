@@ -29,10 +29,16 @@ public class MockRestController {
     public ResponseEntity<String> mockRequest(@PathVariable String mockId) {
     	
     	MockRequest entity = repository.getByMockId(mockId);
-    	
     	MultiValueMap<String, String> headers = getHeadersFromEntity(entity);
-
     	HttpStatus httpStatus = HttpStatus.valueOf(entity.getStatusCode());
+    	
+    	if (entity.getDelay() > 0){
+    		try {
+				Thread.sleep(entity.getDelay());
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+    	}
     	
     	return new ResponseEntity<String>(entity.getBody(), headers, httpStatus);
     }
@@ -78,6 +84,7 @@ public class MockRestController {
     	entity.setEncoding(request.getEncoding());
     	entity.setStatusCode(request.getStatusCode());
     	entity.setHeaders(request.getHeaders());
+    	entity.setDelay(request.getDelay());
     	
     	return entity;
 	}

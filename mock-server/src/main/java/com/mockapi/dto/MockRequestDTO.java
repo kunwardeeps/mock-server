@@ -10,8 +10,8 @@ public class MockRequestDTO {
 	private String contentType;
 	private String encoding;
 	private String body;
-	
 	private List<HeaderDTO> headers;
+	private int delay;
 
 	public String getMockId() {
 		return mockId;
@@ -61,12 +61,18 @@ public class MockRequestDTO {
 		this.headers = headers;
 	}
 
+	public int getDelay() {
+		return delay;
+	}
+
+	public void setDelay(int delay) {
+		this.delay = delay;
+	}
+
 	@Override
 	public String toString() {
 		return "MockRequestDTO [mockId=" + mockId + ", statusCode=" + statusCode + ", contentType=" + contentType
 				+ ", encoding=" + encoding + ", body=" + body + ", headers=" + headers + "]";
 	}
-	
-	
 
 }

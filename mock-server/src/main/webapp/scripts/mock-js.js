@@ -116,7 +116,7 @@ $(document).ready(function() {
                 	console.log('data: ' + data);
                 	if(data != ""){
                         $("#result").removeClass("hidden");
-                        $(".row").replaceWith('<div class="row"><a class="col-xs-3" href="'+data+'" target="_blank">'+data+'</a> </div>');
+                        $(".panel-body").replaceWith('<div class="panel-body"><a href="'+data+'" target="_blank">'+data+'</a> </div>');
                     }
                 	else {
                 		$("#errorResult").removeClass("hidden");

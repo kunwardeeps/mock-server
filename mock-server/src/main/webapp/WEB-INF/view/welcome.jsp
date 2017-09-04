@@ -16,14 +16,39 @@
 		<form id="mockForm" class="form-horizontal" method="post">
 	        <div class="form-group">
 	        	<h1>Welcome to Mock-Server!</h1>
-				<label class="center-block">Status Code:</label>
-		     	<select id="statusCodes" class="form-control" name="statusCode"></select>
-			    
-			    <label class="center-block">Content Type:</label>
-			    <select id="ctypes" class="form-control" name="contentType"></select>
-			    
-			    <label class="center-block">Encoding:</label>
-			    <select id="encodings" class="form-control" name="encoding"></select>
+	        	
+	        	<div id="result" class="hidden">
+	        	  <div class="panel panel-success">
+				      <div class="panel-heading">Your mock link is ready!</div>
+				      <div class="panel-body"></div>
+				  </div>
+				</div>
+	        	
+	        	<div class="row">
+				    <div class="col-sm-6" >
+				    	<label class="center-block">Status Code:</label>
+		     			<select id="statusCodes" class="form-control" name="statusCode"></select>
+				    </div>
+				    <div class="col-sm-6" >
+				    	<label class="center-block">Content Type:</label>
+			   			<select id="ctypes" class="form-control" name="contentType"></select>
+				    </div>
+				</div>
+				
+				<br>
+				
+				<div class="row">
+				    <div class="col-sm-6" >
+				    	<label class="center-block">Encoding:</label>
+			    		<select id="encodings" class="form-control" name="encoding"></select>
+				    </div>
+				    <div class="col-sm-6" >
+				    	<label class="center-block">Delay (in ms):</label>
+			   			<input type="number" id="delay" value=0 class="form-control" name="delay"></input>
+				    </div>
+				</div>
+				
+				<br>
 			    
 			    <label class="form-inline">Headers:</label>
 			    <div class="form-inline headersTemplate">
@@ -31,6 +56,8 @@
 		            <input type="text" class="form-control" name="headers[0][value]" placeholder="Header Value" />
 		            <button type="button" class="btn btn-success addButton">Add</button>
 			    </div>
+			    
+			    <br>
 				
 				<label class="center-block">Body:</label>
 			    <textarea rows="5" class="form-control" name="body"></textarea>
@@ -39,10 +66,7 @@
 			
 			<button type="submit" class="btn btn-primary form-group" >Submit</button>
 			
-			<div id="result" class="hidden form-group">
-			  <h2>Your mock link is ready!</h2>
-			  <div class="row"></div>
-			</div>
+			
 			
 			<div id="errorResult" class="hidden form-group">
 			  <h2>Uh-oh! Can't connect to the server!</h2>
