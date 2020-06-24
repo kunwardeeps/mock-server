@@ -15,7 +15,7 @@ public class MockRequest {
 	private int statusCode;
 	private String contentType;
 	private String encoding;
-	private String body;
+	private Object body;
 	private List<HeaderDTO> headers;
 	private int delay;
 	
@@ -43,10 +43,10 @@ public class MockRequest {
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
 	}
-	public String getBody() {
+	public Object getBody() {
 		return body;
 	}
-	public void setBody(String body) {
+	public void setBody(Object body) {
 		this.body = body;
 	}
 	public List<HeaderDTO> getHeaders() {
