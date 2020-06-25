@@ -2,7 +2,7 @@ package com.mockapi.dto;
 
 import java.util.List;
 
-public class MockRequestDTO {
+public class MockResponseDTO {
 	
 	private String mockId;
 	
@@ -71,7 +71,7 @@ public class MockRequestDTO {
 
 	@Override
 	public String toString() {
-		return "MockRequestDTO [mockId=" + mockId + ", statusCode=" + statusCode + ", contentType=" + contentType
+		return "MockResponseDTO [mockId=" + mockId + ", statusCode=" + statusCode + ", contentType=" + contentType
 				+ ", encoding=" + encoding + ", body=" + body + ", headers=" + headers + "]";
 	}
 
