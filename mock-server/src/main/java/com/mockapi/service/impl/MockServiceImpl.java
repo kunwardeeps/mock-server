@@ -80,7 +80,7 @@ public class MockServiceImpl implements MockService {
         String url = null;
         try {
             url = "http://" + InetAddress.getLocalHost().getHostName() + ":" + environment.getProperty("server.port") +
-                    "/mock/" +
+                    "/api/mock/" +
                     entity.getMockId();
         } catch (UnknownHostException e) {
             LOGGER.error("Unable to resolve current hostname ");
@@ -129,7 +129,7 @@ public class MockServiceImpl implements MockService {
         String url = null;
         try {
             url = "http://" + InetAddress.getLocalHost().getHostName() + ":" + environment.getProperty("server.port") +
-                    "/mock/" +
+                    "/api/mock/" +
                     entity.getMockID();
         } catch (UnknownHostException e) {
             LOGGER.error("Unable to resolve current hostname ");
