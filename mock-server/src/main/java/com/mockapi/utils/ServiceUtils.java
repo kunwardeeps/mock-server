@@ -18,6 +18,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.nio.file.Path;
 import java.util.List;
 
 @Component
@@ -64,8 +65,15 @@ public class ServiceUtils {
     }
 
     public URI generateUri(String hostname, String endPoint, String schema){
-        UriComponents uriComponents = UriComponentsBuilder.newInstance()
-                .scheme(schema).host(hostname).path(endPoint).build();
+        UriComponents uriComponents;
+        if(StringUtils.contains(hostname,":")){
+            String[] hostnamePort = hostname.split(":");
+            uriComponents = UriComponentsBuilder.newInstance()
+                    .scheme(schema).host(hostnamePort[0]).port(hostnamePort[1]).path(endPoint).build();
+        } else {
+            uriComponents = UriComponentsBuilder.newInstance()
+                    .scheme(schema).host(hostname).path(endPoint).build();
+        }
         return uriComponents.toUri();
     }
 
