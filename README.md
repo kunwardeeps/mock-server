@@ -1,4 +1,5 @@
 # Mock-server
+Create and use custom responses. No need to wait for the backend!
 
 ## What is it?
 - Spring boot application to mock API requests quickly. 
