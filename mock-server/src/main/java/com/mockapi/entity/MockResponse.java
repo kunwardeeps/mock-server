@@ -1,7 +1,6 @@
 package com.mockapi.entity;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 
@@ -64,7 +63,7 @@ public class MockResponse {
 
 	@Override
 	public String toString() {
-		return "MockResponse{" +
+		return "MockResponseService{" +
 				"mockId='" + mockId + '\'' +
 				", statusCode=" + statusCode +
 				", contentType='" + contentType + '\'' +

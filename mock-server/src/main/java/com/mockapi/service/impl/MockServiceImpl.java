@@ -8,7 +8,6 @@ import com.mockapi.repository.NoSQLRequestRepository;
 import com.mockapi.repository.NoSQLResponseRepository;
 import com.mockapi.service.MockService;
 import com.mockapi.utils.ServiceUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +49,11 @@ public class MockServiceImpl implements MockService {
         this.serviceUtils = serviceUtils;
     }
 
-    public ResponseEntity<Object> getMockResponse(String mockId) {
-        MockResponse entity = responseRepository.getByMockId(mockId);
+    public ResponseEntity<Object> testMockResponse(String mockId) {
+        MockResponse entity = responseRepository.getByMockId(mockId).block();
         if (entity != null) {
-            LOGGER.debug("Got entity {} for mockID {} ", entity.toString(), mockId);
+            LOGGER.debug("Test Entity from DB : {}",entity);
+            LOGGER.debug("Got entity {} for mockID {} ", entity, mockId);
             MultiValueMap<String, String> headers = serviceUtils.getHeadersFromEntity(entity);
             HttpStatus httpStatus = HttpStatus.valueOf(entity.getStatusCode());
             LOGGER.debug("Entering Delay period of {}", entity.getDelay());
@@ -61,21 +61,22 @@ public class MockServiceImpl implements MockService {
                 try {
                     Thread.sleep(entity.getDelay());
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    LOGGER.error("Thread Interrupted {}", Thread.currentThread());
+                    Thread.currentThread().interrupt();
                 }
             }
-            return new ResponseEntity<Object>(entity.getBody(), headers, httpStatus);
+            return new ResponseEntity<>(entity.getBody(), headers, httpStatus);
         } else {
             LOGGER.error("No mock Response found for {}", mockId);
-            return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     public ResponseEntity<Object> saveMockResponse(MockResponseDTO request) {
         MockResponse entity = serviceUtils.getResponseEntityFromDTO(request);
 
-        LOGGER.debug("Saving entity {}", entity.toString());
-        responseRepository.save(entity);
+        LOGGER.debug("Saving entity {}", entity);
+        responseRepository.save(entity).block();
 
         String url = null;
         try {
@@ -87,15 +88,16 @@ public class MockServiceImpl implements MockService {
             e.printStackTrace();
         }
 
-        return new ResponseEntity<Object>(url, HttpStatus.OK);
+        return new ResponseEntity<>(url, HttpStatus.OK);
     }
 
     public ResponseEntity<Object> deleteMockResponse(MockResponseDTO request) {
         try {
-            MockResponse entity = responseRepository.getByMockId(request.getMockId());
-            LOGGER.debug("Got entity to be deleted: {}", entity.toString());
+            MockResponse entity = responseRepository.getByMockId(request.getMockId()).block();
+            assert entity != null;
+            LOGGER.debug("Got entity to be deleted: {}", entity);
             LOGGER.info("Deleting {}",entity.getMockId());
-            responseRepository.delete(entity);
+            responseRepository.delete(entity).block();
             return new ResponseEntity<>(
                     "{\"message\":\"Deletion Successful \" }", HttpStatus.OK);
         } catch (Exception e){
@@ -108,9 +110,7 @@ public class MockServiceImpl implements MockService {
     public ResponseEntity<Object> testEndpoint(MockRequest request) {
         URI uri = serviceUtils.generateUri(request.getHostName(), request.getEndpoint(), request.getSchema());
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-        request.getHeaders().forEach(headerDTO -> {
-            headers.add(headerDTO.getName(),headerDTO.getValue());
-        });
+        request.getHeaders().forEach(headerDTO -> headers.add(headerDTO.getName(),headerDTO.getValue()));
         RequestEntity<Object> requestEntity;
         requestEntity = new RequestEntity<>(request.getBody(),headers, HttpMethod.resolve(request.getHttpMethod()),uri);
         return restTemplate.exchange(requestEntity, Object.class);
@@ -123,8 +123,8 @@ public class MockServiceImpl implements MockService {
 
     public ResponseEntity<Object> saveMockRequest(RequestDTO requestDTO){
         MockRequest entity = serviceUtils.getMockRequestFromDTO(requestDTO);
-        LOGGER.debug("Saving entity {}", entity.toString());
-        requestRepository.save(entity);
+        LOGGER.debug("Saving entity {}", entity);
+        requestRepository.save(entity).block();
 
         String url = null;
         try {
@@ -135,15 +135,16 @@ public class MockServiceImpl implements MockService {
             LOGGER.error("Unable to resolve current hostname ");
             e.printStackTrace();
         }
-        return new ResponseEntity<Object>(url, HttpStatus.OK);
+        return new ResponseEntity<>(url, HttpStatus.OK);
     }
 
     public ResponseEntity<Object> deleteMockRequest(RequestDTO request) {
         try {
-            MockRequest entity = requestRepository.getByMockID(request.getMockID());
-            LOGGER.debug("Got entity to be deleted: {}", entity.toString());
+            MockRequest entity = requestRepository.getByMockID(request.getMockID()).block();
+            assert entity != null;
+            LOGGER.debug("Got entity to be deleted: {}", entity);
             LOGGER.info("Deleting {}",entity.getMockID());
-            requestRepository.delete(entity);
+            requestRepository.delete(entity).block();
             return new ResponseEntity<>(
                     "{\"message\":\"Deletion Successful \" }", HttpStatus.OK);
         } catch (Exception e){
@@ -154,7 +155,8 @@ public class MockServiceImpl implements MockService {
     }
 
     public ResponseEntity<Object> testRequestMockId(String mockId){
-        MockRequest entity = requestRepository.getByMockID(mockId);
+        MockRequest entity = requestRepository.getByMockID(mockId).block();
+        assert entity != null;
         return testEndpoint(entity);
     }
 }

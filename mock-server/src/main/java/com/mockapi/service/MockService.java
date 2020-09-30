@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface MockService {
-    public ResponseEntity<Object> getMockResponse(String mockId);
-    public ResponseEntity<Object> saveMockResponse(MockResponseDTO request);
-    public ResponseEntity<Object> deleteMockResponse(MockResponseDTO request);
-    public ResponseEntity<Object> testDTOEndpoint(RequestDTO request);
-    public ResponseEntity<Object> testRequestMockId(String mockId);
-    public ResponseEntity<Object> deleteMockRequest(RequestDTO request);
-    public ResponseEntity<Object> saveMockRequest(RequestDTO requestDTO);
+    ResponseEntity<Object> testMockResponse(String mockId);
+    ResponseEntity<Object> saveMockResponse(MockResponseDTO request);
+    ResponseEntity<Object> deleteMockResponse(MockResponseDTO request);
+    ResponseEntity<Object> testDTOEndpoint(RequestDTO request);
+    ResponseEntity<Object> testRequestMockId(String mockId);
+    ResponseEntity<Object> deleteMockRequest(RequestDTO request);
+    ResponseEntity<Object> saveMockRequest(RequestDTO requestDTO);
 }

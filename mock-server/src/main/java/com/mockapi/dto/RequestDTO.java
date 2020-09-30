@@ -1,8 +1,5 @@
 package com.mockapi.dto;
 
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-
 import java.util.List;
 
 public class RequestDTO {

@@ -1,9 +1,10 @@
 package com.mockapi.repository;
 
 import com.mockapi.entity.MockRequest;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import reactor.core.publisher.Mono;
 
-public interface NoSQLRequestRepository extends MongoRepository<MockRequest, String> {
+public interface NoSQLRequestRepository extends ReactiveMongoRepository<MockRequest, String> {
 
-    public MockRequest getByMockID(String mockId);
+    Mono<MockRequest> getByMockID(String mockId);
 }

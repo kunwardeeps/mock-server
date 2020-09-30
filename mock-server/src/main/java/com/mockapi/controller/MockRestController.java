@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class MockRestController {
 
@@ -18,17 +19,10 @@ public class MockRestController {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MockRestController.class);
 
-    @GetMapping(value = "/mock/{mockId}")
+    @RequestMapping(value = "/mock/{mockId}", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity<Object> mockRequestGet(@PathVariable String mockId) {
         LOGGER.info("Received Request at mock endpoint /mock/{}", mockId);
-		return mockService.getMockResponse(mockId);
-    }
-
-    @PostMapping(value = "/mock/{mockId}")
-    public ResponseEntity<Object> mockRequestPost(@PathVariable String mockId, @RequestBody Object o) {
-
-        LOGGER.info("Received Request at mock endpoint /mock/{}", mockId);
-        return mockService.getMockResponse(mockId);
+		return mockService.testMockResponse(mockId);
     }
 
 	@PostMapping(value = "/save/response")

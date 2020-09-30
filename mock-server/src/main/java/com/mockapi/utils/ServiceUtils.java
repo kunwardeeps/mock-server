@@ -18,7 +18,6 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.nio.file.Path;
 import java.util.List;
 
 @Component
@@ -33,7 +32,7 @@ public class ServiceUtils {
         if (request.getMockId() == null) {
             LOGGER.debug("No mockID passed in request body, generating mockID");
             ObjectId id = new ObjectId();
-            LOGGER.info("Generated MockId: {}", id.toString());
+            LOGGER.info("Generated MockId: {}", id);
             entity.setMockId(id.toString());
         } else entity.setMockId(request.getMockId());
 
