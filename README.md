@@ -13,7 +13,7 @@ It can be used to integration with any service without calling actul service.
 - Test Service as a whole with endpoints by mocking request and response for a service.
 - Uses ReactiveMongo for db connection.
 
-	- **Technology stack** : Standalone Springboot appliation providing RESTful service written in JAVA 8 with Maven as Build tool. 
+	- **Technology stack** : Standalone Springboot appliation providing RESTful service written in JAVA 8 with Maven as Build tool and MongoDB as Database. 
 
 
 ## Screenshot
