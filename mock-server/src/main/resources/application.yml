@@ -1,15 +1,11 @@
 logging:
     level:
         com:
-            mockapi: TRACE
+            mockapi: INFO
         web: INFO
 spring:
     application:
         name: MockServer
     data:
         mongodb:
-            uri: mongodb://localhost:27017/mockDB
-    mvc:
-        view:
-            prefix: /WEB-INF/view/
-            suffix: .jsp
+            uri: ${MONGO_DB_CONNECTION}
