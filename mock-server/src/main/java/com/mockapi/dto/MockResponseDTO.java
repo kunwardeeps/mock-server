@@ -2,14 +2,14 @@ package com.mockapi.dto;
 
 import java.util.List;
 
-public class MockRequestDTO {
+public class MockResponseDTO {
 	
 	private String mockId;
 	
 	private int statusCode;
 	private String contentType;
 	private String encoding;
-	private String body;
+	private Object body;
 	private List<HeaderDTO> headers;
 	private int delay;
 
@@ -45,11 +45,11 @@ public class MockRequestDTO {
 		this.encoding = encoding;
 	}
 
-	public String getBody() {
+	public Object getBody() {
 		return body;
 	}
 
-	public void setBody(String body) {
+	public void setBody(Object body) {
 		this.body = body;
 	}
 
@@ -71,7 +71,7 @@ public class MockRequestDTO {
 
 	@Override
 	public String toString() {
-		return "MockRequestDTO [mockId=" + mockId + ", statusCode=" + statusCode + ", contentType=" + contentType
+		return "MockResponseDTO [mockId=" + mockId + ", statusCode=" + statusCode + ", contentType=" + contentType
 				+ ", encoding=" + encoding + ", body=" + body + ", headers=" + headers + "]";
 	}
 

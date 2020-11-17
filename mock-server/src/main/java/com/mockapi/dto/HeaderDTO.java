@@ -21,4 +21,12 @@ public class HeaderDTO {
 	public String toString() {
 		return "HeaderDTO [name=" + name + ", value=" + value + "]";
 	}
+
+	public HeaderDTO(String name, String value) {
+		this.name = name;
+		this.value = value;
+	}
+
+	public HeaderDTO() {
+	}
 }

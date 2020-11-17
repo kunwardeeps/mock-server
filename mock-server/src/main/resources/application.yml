@@ -1,0 +1,11 @@
+logging:
+    level:
+        com:
+            mockapi: INFO
+        web: INFO
+spring:
+    application:
+        name: MockServer
+    data:
+        mongodb:
+            uri: ${MONGO_DB_CONNECTION}
