@@ -1,19 +1,19 @@
-package com.mockapi.entity;
-
-import com.mockapi.dto.HeaderDTO;
-import org.springframework.data.annotation.Id;
+package com.mockapi.dto;
 
 import java.util.List;
 
-public class MockRequest {
-    @Id
+public class RequestDTO {
+
     private String mockID;
     private String hostName;
     private String endpoint;
     private String schema;
     private String httpMethod;
+    private String contentType;
+    private String encoding;
     private Object body;
     private List<HeaderDTO> headers;
+    private String  accept;
 
     public String getMockID() {
         return mockID;
@@ -21,6 +21,14 @@ public class MockRequest {
 
     public void setMockID(String mockID) {
         this.mockID = mockID;
+    }
+
+    public String getAccept() {
+        return accept;
+    }
+
+    public void setAccept(String accept) {
+        this.accept = accept;
     }
 
     public String getHostName() {
@@ -55,6 +63,22 @@ public class MockRequest {
         this.httpMethod = httpMethod;
     }
 
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public String getEncoding() {
+        return encoding;
+    }
+
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
+
     public Object getBody() {
         return body;
     }
@@ -73,15 +97,17 @@ public class MockRequest {
 
     @Override
     public String toString() {
-        return "MockRequest{" +
+        return "RequestDTO{" +
                 "mockID='" + mockID + '\'' +
                 ", hostName='" + hostName + '\'' +
                 ", endpoint='" + endpoint + '\'' +
                 ", schema='" + schema + '\'' +
-                ", httpMethod=" + httpMethod +
+                ", httpMethod='" + httpMethod + '\'' +
+                ", contentType='" + contentType + '\'' +
+                ", encoding='" + encoding + '\'' +
                 ", body=" + body +
                 ", headers=" + headers +
+                ", accept='" + accept + '\'' +
                 '}';
     }
-
 }

@@ -1,22 +1,28 @@
 $(document).ready(function() {
     var codes = [{key:"200 OK",val:200},
-    			{key:"201",val:201},
-    			{key:"404 Not Found",val:400}];
+    			{key:"201 Created",val:201},
+    			{key:"404 Not Found",val:404},
+    			{key:"403 Forbidden",val:403},
+    			{key:"400 Bad Request",val:400},
+    			{key:"500 Internal Server Error",val:500},
+    			{key:"501 Not Implemented",val:501},
+    			{key:"502 Bad Gateway",val:502},
+    			{key:"503 Service Unavailable",val:503}];
     var ctypes = ["application/json","application/xml","text/json","text/xml"];
     var encodings = ["UTF-8","UTF-16"];
-    
+
     var option = '';
     for (var i = 0; i < codes.length; i++){
        option += '<option value="'+ codes[i].val + '">' + codes[i].key + '</option>';
     }
     $('#statusCodes').append(option);
-    
+
     option = '';
     for (var i = 0; i < ctypes.length; i++){
        option += '<option value="'+ ctypes[i] + '">' + ctypes[i] + '</option>';
     }
     $('#ctypes').append(option);
-    
+
     option = '';
     for (var i = 0; i < encodings.length; i++){
         option += '<option value="'+ encodings[i] + '">' + encodings[i] + '</option>';
@@ -25,14 +31,14 @@ $(document).ready(function() {
 
     var wrapper = $(".headersTemplate"); //Fields wrapper
     var i = 0;
-    $(".addButton").click(function(){ 
+    $(".addButton").click(function(){
     	i++;
         $(wrapper).append('<div class="form-inline"><br><input type="text" class="form-control" name="headers['+i+'][name]"  placeholder="Header Name"/> : <input type="text" class="form-control" name="headers['+i+'][value]" placeholder="Header Value" /> <button type="button" class="btn btn-danger removeButton">Delete</button></div>'); //add input box
     });
     $(wrapper).on("click",".removeButton", function(){ //user click on remove text
         $(this).parent('div').remove();
     });
-    
+
     (function($){
         $.fn.serializeObject = function(){
 
@@ -99,16 +105,16 @@ $(document).ready(function() {
             return json;
         };
     })(jQuery);
-    
+
     $("#mockForm").submit(function(e) {
     	e.preventDefault();
-    	
+
     	var request = JSON.stringify($(this).serializeObject());
-    	
+
     	console.log(request);
-    	
+
         $.ajax({
-                url: '/save',
+                url: '/api/save/response',
                 type: 'POST',
                 contentType: "application/json",
                 data: request,
